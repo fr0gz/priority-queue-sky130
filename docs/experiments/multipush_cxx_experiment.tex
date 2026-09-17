@@ -1,0 +1,1117 @@
+\documentclass[11pt,a4paper]{article}
+
+% ============================================================
+% PREÁMBULO
+% ============================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    margin=2.5cm
+}
+
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+% ============================================================
+% CONFIGURACIÓN DE CÓDIGO
+% ============================================================
+
+\definecolor{codegray}{RGB}{245,245,245}
+\definecolor{commentgreen}{RGB}{45,120,70}
+\definecolor{keywordblue}{RGB}{40,70,150}
+
+\lstdefinestyle{terminal}{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    columns=fullflexible
+}
+
+\lstdefinestyle{cpp}{
+    language=C++,
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{keywordblue},
+    commentstyle=\color{commentgreen},
+    stringstyle=\color{red!60!black},
+    breaklines=true,
+    frame=single,
+    columns=fullflexible
+}
+
+\lstdefinestyle{textfile}{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    columns=fullflexible
+}
+
+\lstset{
+    showstringspaces=false
+}
+
+% ============================================================
+% HYPERREF
+% ============================================================
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    urlcolor=blue!60!black,
+    citecolor=blue!60!black,
+    pdftitle={Priority Queue SKY130 -- Multi-Push Experimental Runbook},
+    pdfauthor={},
+}
+
+% ============================================================
+% DOCUMENTO
+% ============================================================
+
+\title{
+    \textbf{Priority Queue SKY130}\\
+    \large Multi-Push C++ Reference\\
+    Resultados, Runbook y Glosario
+}
+
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Propósito del documento}
+% ============================================================
+
+Este documento registra la etapa experimental correspondiente a la
+validación funcional de la referencia C++ de \emph{Multi-Push} para el
+proyecto \texttt{priority-queue-sky130}.
+
+El objetivo de esta etapa es comprobar que la implementación:
+
+\begin{lstlisting}[style=textfile]
+cpp/reference/multipush_reference.cpp
+\end{lstlisting}
+
+produce exactamente los mismos resultados observables que el
+\emph{baseline} basado en un binary heap convencional.
+
+La metodología adoptada es deliberadamente conservadora:
+
+\[
+\boxed{
+\text{misma entrada}
+\rightarrow
+\text{misma salida}
+\rightarrow
+\text{verificación}
+\rightarrow
+\text{caracterización}
+\rightarrow
+\text{RTL}
+}
+\]
+
+No se considera apropiado avanzar hacia una implementación RTL mientras
+la referencia algorítmica no haya demostrado equivalencia funcional.
+
+% ============================================================
+\section{Contexto del proyecto}
+% ============================================================
+
+El proyecto busca estudiar una implementación de una \emph{hardware
+priority queue} escalable y las optimizaciones asociadas al procesamiento
+de múltiples operaciones \texttt{PUSH}.
+
+La referencia principal del algoritmo es el trabajo:
+
+\begin{quote}
+\emph{A Fast Scalable Hardware Priority Queue and Optimizations for
+Multi-Pushes}, de Samuel Collinson, Allan Bai y Oliver Sinnen,
+Parallel and Reconfigurable Computing Lab, Department of Electrical,
+Computer, and Software Engineering, University of Auckland, New Zealand.
+\end{quote}
+
+El proyecto utiliza una cadena progresiva:
+
+\[
+\boxed{
+\text{C++ baseline}
+\rightarrow
+\text{C++ Multi-Push}
+\rightarrow
+\text{RTL}
+\rightarrow
+\text{síntesis}
+\rightarrow
+\text{SKY130}
+}
+\]
+
+La etapa documentada aquí corresponde únicamente al segundo elemento:
+la referencia C++ de Multi-Push.
+
+% ============================================================
+\section{Metodología de trabajo}
+% ============================================================
+
+El desarrollo y la ejecución experimental se realizan dentro del
+entorno Docker utilizado por el proyecto.
+
+Esto es importante para preservar la reproducibilidad del entorno de
+EDA y evitar que diferencias entre el sistema anfitrión y el contenedor
+afecten los resultados.
+
+La separación conceptual es:
+
+\begin{lstlisting}[style=textfile]
+HOST
+ |
+ +-- Git / GitHub
+ |
+ +-- Docker
+       |
+       +-- C++ compilation
+       +-- workload generation
+       +-- baseline execution
+       +-- Multi-Push execution
+       +-- functional validation
+       +-- characterization
+       |
+       +-- future RTL simulation
+       +-- future synthesis
+       +-- future SKY130 analysis
+\end{lstlisting}
+
+El repositorio Git permite versionar el proyecto, mientras que Docker
+es el entorno de ejecución experimental.
+
+% ============================================================
+\section{Qué aprendimos}
+% ============================================================
+
+\subsection{La referencia Multi-Push ya puede ejecutar los workloads}
+
+La implementación:
+
+\begin{lstlisting}[style=cpp]
+cpp/reference/multipush_reference.cpp
+\end{lstlisting}
+
+puede procesar los workloads generados para los tamaños:
+
+\[
+N \in \{8,16,32,64,128\}.
+\]
+
+Durante el experimento se han validado funcionalmente los cuatro primeros
+tamaños:
+
+\[
+\boxed{N=8,16,32,64}
+\]
+
+El caso:
+
+\[
+N=128
+\]
+
+queda como siguiente punto de validación.
+
+% ============================================================
+\subsection{La equivalencia funcional se está comprobando contra el baseline}
+
+Para cada tamaño se ejecutan dos modelos sobre exactamente el mismo
+workload:
+
+\[
+\text{workload}
+\rightarrow
+\begin{cases}
+\text{heap\_drain}\\
+\text{multipush\_reference}
+\end{cases}
+\]
+
+Posteriormente se comparan los archivos de salida.
+
+La comprobación utilizada es:
+
+\begin{lstlisting}[style=terminal]
+cmp -s baseline.txt multipush.txt
+\end{lstlisting}
+
+Una salida como:
+
+\begin{lstlisting}[style=textfile]
+PASS: N=32 outputs identical
+\end{lstlisting}
+
+significa que los dos modelos produjeron exactamente la misma salida
+observable para ese workload.
+
+% ============================================================
+\subsection{Resultados funcionales obtenidos}
+
+Hasta este punto se obtuvo:
+
+\begin{center}
+\begin{tabular}{c c c c}
+\toprule
+$N$ & PUSH & POP & Equivalencia funcional \\
+\midrule
+8   & 8   & 8   & PASS \\
+16  & 16  & 16  & PASS \\
+32  & 32  & 32  & PASS \\
+64  & 64  & 64  & PASS \\
+128 & 128 & 128 & Pendiente \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Por lo tanto:
+
+\[
+\boxed{
+N \in \{8,16,32,64\}
+\Rightarrow
+Output_{\mathrm{baseline}}
+=
+Output_{\mathrm{multipush}}
+}
+\]
+
+Esto constituye evidencia de equivalencia funcional para esos workloads,
+pero todavía no constituye una validación exhaustiva de todas las
+posibles entradas.
+
+% ============================================================
+\subsection{Estadísticas observadas}
+
+Las estadísticas obtenidas para Multi-Push fueron:
+
+\begin{center}
+\begin{tabular}{c r r r r r r}
+\toprule
+$N$ &
+$C_{\mathrm{push}}$ &
+$S_{\mathrm{push}}$ &
+$C_{\mathrm{pop}}$ &
+$S_{\mathrm{pop}}$ &
+$C_{\mathrm{total}}$ &
+$S_{\mathrm{total}}$ \\
+\midrule
+8  & 11  & 8  & 16  & 8   & 27  & 16 \\
+16 & 21  & 10 & 56  & 28  & 77  & 38 \\
+32 & 55  & 30 & 175 & 84  & 230 & 114 \\
+64 & 116 & 59 & 452 & 223 & 568 & 282 \\
+128 & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+donde:
+
+\begin{itemize}
+    \item $C_{\mathrm{push}}$ representa comparaciones realizadas durante
+    \texttt{HeapifyUp};
+    \item $S_{\mathrm{push}}$ representa swaps realizados durante
+    \texttt{HeapifyUp};
+    \item $C_{\mathrm{pop}}$ representa comparaciones realizadas durante
+    \texttt{HeapifyDown};
+    \item $S_{\mathrm{pop}}$ representa swaps realizados durante
+    \texttt{HeapifyDown}.
+\end{itemize}
+
+% ============================================================
+\subsection{Para N=8}
+
+El primer experimento produjo:
+
+\begin{lstlisting}[style=textfile]
+pushes=8
+pops=8
+push_comparisons=11
+push_swaps=8
+pop_comparisons=16
+pop_swaps=8
+total_comparisons=27
+total_swaps=16
+heapify_up_count=8
+\end{lstlisting}
+
+La comparación produjo:
+
+\begin{lstlisting}[style=textfile]
+PASS: N=8 outputs identical
+\end{lstlisting}
+
+% ============================================================
+\subsection{Para N=16}
+
+El experimento produjo:
+
+\begin{lstlisting}[style=textfile]
+pushes=16
+pops=16
+push_comparisons=21
+push_swaps=10
+pop_comparisons=56
+pop_swaps=28
+total_comparisons=77
+total_swaps=38
+heapify_up_count=16
+\end{lstlisting}
+
+Resultado:
+
+\begin{lstlisting}[style=textfile]
+PASS: N=16 outputs identical
+\end{lstlisting}
+
+% ============================================================
+\subsection{Para N=32}
+
+El experimento produjo:
+
+\begin{lstlisting}[style=textfile]
+pushes=32
+pops=32
+push_comparisons=55
+push_swaps=30
+pop_comparisons=175
+pop_swaps=84
+total_comparisons=230
+total_swaps=114
+heapify_up_count=32
+\end{lstlisting}
+
+Resultado:
+
+\begin{lstlisting}[style=textfile]
+PASS: N=32 outputs identical
+\end{lstlisting}
+
+% ============================================================
+\subsection{Para N=64}
+
+El experimento produjo:
+
+\begin{lstlisting}[style=textfile]
+pushes=64
+pops=64
+push_comparisons=116
+push_swaps=59
+pop_comparisons=452
+pop_swaps=223
+total_comparisons=568
+total_swaps=282
+heapify_up_count=64
+\end{lstlisting}
+
+Resultado:
+
+\begin{lstlisting}[style=textfile]
+PASS: N=64 outputs identical
+\end{lstlisting}
+
+% ============================================================
+\section{Interpretación de los resultados}
+% ============================================================
+
+Los resultados permiten establecer una conclusión concreta:
+
+\[
+\boxed{
+\text{La referencia Multi-Push produce la misma salida que el baseline
+para } N=8,16,32,64.
+}
+\]
+
+Sin embargo, todavía no corresponde concluir que Multi-Push presenta una
+mejora algorítmica respecto del baseline.
+
+La razón es que:
+
+\[
+\text{equivalencia funcional}
+\neq
+\text{mejora de coste}
+\]
+
+El siguiente experimento debe comparar las estadísticas internas del
+baseline y de Multi-Push bajo exactamente los mismos workloads.
+
+La pregunta pendiente es:
+
+\[
+\boxed{
+\text{¿Dónde está realmente la reducción u organización diferente
+del trabajo producida por Multi-Push?}
+}
+\]
+
+Esta pregunta es especialmente importante antes de traducir el algoritmo
+a RTL.
+
+% ============================================================
+\section{Interpretación de heap\_size y push\_location}
+% ============================================================
+
+La referencia Multi-Push utiliza dos conceptos separados.
+
+\subsection{\texttt{heap\_size\_}}
+
+Representa la cantidad de elementos que ya forman parte del heap
+ordenado.
+
+\[
+\texttt{heap\_size\_}
+=
+\text{cantidad de elementos incorporados al heap}
+\]
+
+\subsection{\texttt{push\_location\_}}
+
+Representa la posición donde se acepta el siguiente PUSH.
+
+\[
+\texttt{push\_location\_}
+=
+\text{primera posición libre para aceptar un PUSH}
+\]
+
+Por lo tanto:
+
+\[
+\boxed{
+\texttt{push\_location\_} > \texttt{heap\_size\_}
+}
+\]
+
+indica que existen elementos aceptados mediante PUSH que todavía no han
+sido incorporados mediante \texttt{HeapifyUp}.
+
+Esta separación es una de las partes conceptualmente importantes del
+modelo.
+
+% ============================================================
+\section{Runbook}
+% ============================================================
+
+\subsection{Objetivo}
+
+Este runbook describe cómo repetir la validación de la referencia
+Multi-Push dentro del Docker.
+
+La secuencia general es:
+
+\[
+\boxed{
+\text{workload}
+\rightarrow
+\text{baseline}
+\rightarrow
+\text{Multi-Push}
+\rightarrow
+\text{compare}
+\rightarrow
+\text{statistics}
+}
+\]
+
+% ============================================================
+\subsection{Paso 1: entrar al entorno Docker}
+
+El proyecto debe estar montado dentro del contenedor.
+
+Entrar al proyecto:
+
+\begin{lstlisting}[style=terminal]
+cd /foss/designs/priority-queue-sky130
+\end{lstlisting}
+
+Verificar:
+
+\begin{lstlisting}[style=terminal]
+pwd
+\end{lstlisting}
+
+Resultado esperado:
+
+\begin{lstlisting}[style=textfile]
+/foss/designs/priority-queue-sky130
+\end{lstlisting}
+
+Entrar al directorio C++:
+
+\begin{lstlisting}[style=terminal]
+cd cpp
+\end{lstlisting}
+
+% ============================================================
+\subsection{Paso 2: verificar los workloads}
+
+Los workloads principales utilizan:
+
+\[
+\boxed{\mathrm{seed}=12345}
+\]
+
+y:
+
+\[
+\boxed{
+N\in\{8,16,32,64,128\}
+}
+\]
+
+Verificar:
+
+\begin{lstlisting}[style=terminal]
+ls -l workloads/generated/
+\end{lstlisting}
+
+Deben existir archivos como:
+
+\begin{lstlisting}[style=textfile]
+workload_8_seed12345.txt
+workload_16_seed12345.txt
+workload_32_seed12345.txt
+workload_64_seed12345.txt
+workload_128_seed12345.txt
+\end{lstlisting}
+
+% ============================================================
+\subsection{Paso 3: ejecutar Multi-Push}
+
+Para $N=8$:
+
+\begin{lstlisting}[style=terminal]
+./reference/multipush_reference \
+    workloads/generated/workload_8_seed12345.txt \
+    > /tmp/multipush_8.txt \
+    2> /tmp/multipush_8.stats
+\end{lstlisting}
+
+Para $N=16$:
+
+\begin{lstlisting}[style=terminal]
+./reference/multipush_reference \
+    workloads/generated/workload_16_seed12345.txt \
+    > /tmp/multipush_16.txt \
+    2> /tmp/multipush_16.stats
+\end{lstlisting}
+
+El mismo patrón se utiliza para los demás tamaños.
+
+% ============================================================
+\subsection{Paso 4: ejecutar el baseline}
+
+Por ejemplo, para $N=16$:
+
+\begin{lstlisting}[style=terminal]
+./reference/heap_drain \
+    workloads/generated/workload_16_seed12345.txt \
+    > /tmp/baseline_16.txt
+\end{lstlisting}
+
+% ============================================================
+\subsection{Paso 5: comparar outputs}
+
+Comparar:
+
+\begin{lstlisting}[style=terminal]
+cmp -s /tmp/baseline_16.txt /tmp/multipush_16.txt \
+    && echo "PASS: N=16 outputs identical" \
+    || echo "FAIL: N=16 outputs differ"
+\end{lstlisting}
+
+También puede utilizarse:
+
+\begin{lstlisting}[style=terminal]
+diff -u /tmp/baseline_16.txt /tmp/multipush_16.txt
+\end{lstlisting}
+
+Si \texttt{diff} no produce salida, los archivos son idénticos.
+
+% ============================================================
+\subsection{Paso 6: inspeccionar estadísticas}
+
+Por ejemplo:
+
+\begin{lstlisting}[style=terminal]
+cat /tmp/multipush_16.stats
+\end{lstlisting}
+
+Las estadísticas se mantienen separadas del output funcional:
+
+\[
+\boxed{
+stdout=\text{resultado funcional}
+}
+\]
+
+\[
+\boxed{
+stderr=\text{estadísticas}
+}
+\]
+
+Esto permite comparar directamente los outputs sin contaminar la salida
+con información de caracterización.
+
+% ============================================================
+\subsection{Paso 7: repetir para todos los tamaños}
+
+El procedimiento completo es:
+
+\begin{lstlisting}[style=terminal]
+for N in 8 16 32 64 128; do
+
+    ./reference/multipush_reference \
+        "workloads/generated/workload_${N}_seed12345.txt" \
+        > "/tmp/multipush_${N}.txt" \
+        2> "/tmp/multipush_${N}.stats"
+
+    ./reference/heap_drain \
+        "workloads/generated/workload_${N}_seed12345.txt" \
+        > "/tmp/baseline_${N}.txt"
+
+    cmp -s \
+        "/tmp/baseline_${N}.txt" \
+        "/tmp/multipush_${N}.txt" \
+        && echo "PASS: N=${N} outputs identical" \
+        || echo "FAIL: N=${N} outputs differ"
+
+done
+\end{lstlisting}
+
+% ============================================================
+\subsection{Paso 8: revisar estadísticas}
+
+Para revisar todos los resultados:
+
+\begin{lstlisting}[style=terminal]
+for N in 8 16 32 64 128; do
+    echo "===== N=${N} ====="
+    cat "/tmp/multipush_${N}.stats"
+done
+\end{lstlisting}
+
+% ============================================================
+\subsection{Paso 9: si aparece FAIL}
+
+Si cualquier tamaño produce:
+
+\begin{lstlisting}[style=textfile]
+FAIL: N=XX outputs differ
+\end{lstlisting}
+
+el procedimiento debe detenerse.
+
+No continuar todavía hacia:
+
+\begin{lstlisting}[style=textfile]
+RTL
+synthesis
+timing
+area
+power
+SKY130
+\end{lstlisting}
+
+Primero comparar:
+
+\begin{lstlisting}[style=terminal]
+diff -u \
+    /tmp/baseline_XX.txt \
+    /tmp/multipush_XX.txt
+\end{lstlisting}
+
+y buscar el primer punto de divergencia.
+
+% ============================================================
+\section{Criterios de aceptación}
+% ============================================================
+
+La etapa C++ Multi-Push se considera funcionalmente validada cuando:
+
+\begin{lstlisting}[style=textfile]
+[PASS] mismo workload
+[PASS] baseline ejecuta correctamente
+[PASS] Multi-Push ejecuta correctamente
+[PASS] N=8 outputs identical
+[PASS] N=16 outputs identical
+[PASS] N=32 outputs identical
+[PASS] N=64 outputs identical
+[PASS] N=128 outputs identical
+\end{lstlisting}
+
+Actualmente el estado es:
+
+\begin{lstlisting}[style=textfile]
+[PASS] N=8
+[PASS] N=16
+[PASS] N=32
+[PASS] N=64
+[PENDING] N=128
+\end{lstlisting}
+
+% ============================================================
+\section{Qué debemos hacer después}
+% ============================================================
+
+Una vez validado $N=128$, el siguiente paso no será inmediatamente RTL.
+
+Primero se realizará una caracterización comparativa:
+
+\[
+\begin{array}{c|c|c}
+\text{Métrica} & \text{Baseline} & \text{Multi-Push}\\
+\hline
+\text{Push comparisons} & ? & ?\\
+\text{Push swaps} & ? & ?\\
+\text{Pop comparisons} & ? & ?\\
+\text{Pop swaps} & ? & ?\\
+\text{Total comparisons} & ? & ?\\
+\text{Total swaps} & ? & ?
+\end{array}
+\]
+
+El objetivo es determinar si la referencia implementada representa una
+organización de trabajo distinta y útil para una posterior arquitectura
+hardware.
+
+En particular se deberá estudiar:
+
+\begin{lstlisting}[style=textfile]
+push_location_
+heap_size_
+busy()
+finish_pending_pushes()
+heapify_up()
+heapify_down()
+\end{lstlisting}
+
+La transición posterior será:
+
+\[
+\boxed{
+\text{C++ Multi-Push validado}
+\rightarrow
+\text{arquitectura RTL}
+}
+\]
+
+% ============================================================
+\section{Reglas metodológicas}
+% ============================================================
+
+Durante esta fase se mantienen las siguientes reglas:
+
+\begin{enumerate}
+    \item No cambiar el workload entre baseline y Multi-Push.
+    \item Mantener la semilla fija.
+    \item Ejecutar los experimentos dentro del Docker.
+    \item Comparar primero outputs.
+    \item Analizar estadísticas solamente después de establecer
+    equivalencia funcional.
+    \item No interpretar una estadística aislada como una mejora de
+    hardware.
+    \item No realizar afirmaciones de área, timing, potencia o PPA
+    basadas únicamente en el modelo C++.
+    \item No comenzar RTL hasta que el comportamiento algorítmico esté
+    suficientemente comprendido.
+\end{enumerate}
+
+La regla de oro continúa siendo:
+
+\[
+\boxed{
+\text{CORRECTNESS}
+\rightarrow
+\text{ALGORITHM}
+\rightarrow
+\text{HARDWARE}
+}
+\]
+
+% ============================================================
+\section{Glosario}
+% ============================================================
+
+\begin{longtable}{p{0.25\textwidth} p{0.68\textwidth}}
+\toprule
+\textbf{Término} & \textbf{Significado} \\
+\midrule
+\endhead
+
+Priority Queue &
+Estructura de datos que permite insertar elementos asociados a una
+prioridad y extraer el elemento de mayor prioridad según el criterio
+definido. \\
+
+Binary Heap &
+Representación basada en un árbol binario completo utilizada para
+implementar eficientemente una priority queue. \\
+
+HeapifyUp &
+Operación que mueve un elemento hacia la raíz mientras tenga una
+prioridad menor que la de su padre. \\
+
+HeapifyDown &
+Operación utilizada después de extraer la raíz para restaurar la
+propiedad del heap desplazando un elemento hacia abajo. \\
+
+PUSH &
+Operación de inserción de un nuevo elemento en la priority queue. \\
+
+POP &
+Operación de extracción del elemento ubicado en la raíz del heap. \\
+
+Multi-Push &
+Optimización orientada a procesar múltiples operaciones PUSH con una
+organización diferente del trabajo de mantenimiento del heap. \\
+
+Baseline &
+Implementación convencional utilizada como referencia funcional y
+algorítmica. \\
+
+Multi-Push Reference &
+Modelo C++ que representa algorítmicamente la estrategia Multi-Push antes
+de su traducción a RTL. \\
+
+\texttt{heap\_size\_} &
+Número de elementos que actualmente han sido incorporados al heap
+ordenado. \\
+
+\texttt{push\_location\_} &
+Posición donde se almacenará el siguiente elemento aceptado por PUSH. \\
+
+Pending PUSH &
+Elemento que ya fue aceptado y almacenado pero todavía no ha sido
+incorporado al ordenamiento del heap mediante HeapifyUp. \\
+
+\texttt{busy()} &
+Predicado que indica si existen PUSH pendientes. Es equivalente a
+comprobar si \texttt{push\_location\_ > heap\_size\_}. \\
+
+Functional Equivalence &
+Condición en la cual dos implementaciones producen exactamente la misma
+salida observable para una misma entrada. \\
+
+Workload &
+Archivo que contiene una secuencia de operaciones PUSH y POP utilizada
+como entrada experimental. \\
+
+Seed &
+Semilla utilizada para generar determinísticamente un workload. En esta
+caracterización se utiliza \texttt{12345}. \\
+
+Comparison &
+Operación de comparación entre dos elementos del heap. \\
+
+Swap &
+Intercambio de dos elementos almacenados en el vector del heap. \\
+
+Characterization &
+Medición del comportamiento interno del algoritmo, por ejemplo cantidad
+de comparaciones y swaps. \\
+
+RTL &
+\emph{Register Transfer Level}; nivel de descripción utilizado para
+diseñar hardware digital mediante Verilog o SystemVerilog. \\
+
+SKY130 &
+Proceso tecnológico open-source de 130 nm utilizado posteriormente para
+síntesis y flujo físico. \\
+
+Docker &
+Entorno de ejecución utilizado para mantener controladas las
+herramientas y dependencias del experimento. \\
+
+Reproducibility &
+Capacidad de repetir un experimento con las mismas entradas y entorno y
+obtener resultados comparables. \\
+
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Glosario de comandos}
+% ============================================================
+
+\begin{longtable}{p{0.28\textwidth} p{0.63\textwidth}}
+\toprule
+\textbf{Comando} & \textbf{Función} \\
+\midrule
+\endhead
+
+\texttt{cd} &
+Cambia el directorio actual. \\
+
+\texttt{pwd} &
+Muestra el directorio actual. \\
+
+\texttt{ls -l} &
+Lista archivos mostrando información detallada. \\
+
+\texttt{cat} &
+Muestra el contenido de un archivo por la salida estándar. \\
+
+\texttt{head} &
+Muestra las primeras líneas de un archivo. \\
+
+\texttt{wc -l} &
+Cuenta las líneas de un archivo. \\
+
+\texttt{./program} &
+Ejecuta un programa ubicado en el directorio actual. \\
+
+\texttt{>} &
+Redirige \texttt{stdout} hacia un archivo. \\
+
+\texttt{2>} &
+Redirige \texttt{stderr} hacia un archivo. \\
+
+\texttt{cmp} &
+Compara dos archivos byte por byte. \\
+
+\texttt{diff -u} &
+Compara dos archivos mostrando las diferencias en formato unificado. \\
+
+\texttt{for} &
+Permite repetir comandos para múltiples tamaños de workload. \\
+
+\texttt{g++} &
+Compilador C++ utilizado para generar los ejecutables de referencia. \\
+
+\texttt{git status} &
+Muestra el estado del repositorio Git. \\
+
+\texttt{git add} &
+Agrega archivos al área de staging. \\
+
+\texttt{git commit} &
+Crea un commit con los cambios preparados. \\
+
+\texttt{git push} &
+Envía commits desde el repositorio local hacia el repositorio remoto. \\
+
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Estado experimental}
+% ============================================================
+
+El estado de esta etapa queda registrado como:
+
+\begin{lstlisting}[style=textfile]
+Project:
+    priority-queue-sky130
+
+Environment:
+    Docker
+
+Language:
+    C++
+
+Workload seed:
+    12345
+
+Validated sizes:
+    N = 8
+    N = 16
+    N = 32
+    N = 64
+
+Pending:
+    N = 128
+
+Functional equivalence:
+    PASS for N = 8,16,32,64
+
+Algorithmic characterization:
+    IN PROGRESS
+
+RTL:
+    NOT STARTED
+
+Synthesis:
+    NOT STARTED
+
+SKY130 physical implementation:
+    NOT STARTED
+\end{lstlisting}
+
+% ============================================================
+\section{Conclusión}
+% ============================================================
+
+La etapa realizada demuestra que la referencia C++ de Multi-Push puede
+procesar los workloads utilizados y que, para:
+
+\[
+N=8,16,32,64,
+\]
+
+produce exactamente los mismos outputs que el baseline.
+
+Esto constituye el primer requisito para continuar con el proyecto:
+
+\[
+\boxed{
+\text{equivalencia funcional}
+}
+\]
+
+El siguiente objetivo experimental es completar:
+
+\[
+N=128
+\]
+
+y posteriormente realizar una comparación sistemática de las
+operaciones internas entre baseline y Multi-Push.
+
+Solamente después de comprender esa diferencia algorítmica se deberá
+definir la arquitectura RTL.
+
+Por lo tanto, el flujo metodológico permanece:
+
+\[
+\boxed{
+\text{CORRECTNESS}
+\rightarrow
+\text{ALGORITHM}
+\rightarrow
+\text{HARDWARE}
+}
+\]
+
+\end{document}
+
