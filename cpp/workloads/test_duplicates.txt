@@ -1,0 +1,12 @@
+# Duplicate priority test
+
+PUSH 20 200
+PUSH 10 101
+PUSH 10 100
+PUSH 30 300
+PUSH 20 201
+POP
+POP
+POP
+POP
+POP

@@ -1,0 +1,11 @@
+# Interleaved push/pop test
+
+PUSH 40 400
+PUSH 10 100
+POP
+PUSH 30 300
+PUSH 20 200
+POP
+PUSH 5 500
+POP
+POP

@@ -1,0 +1,31 @@
+# Burst-oriented workload with unique values
+
+PUSH 50 0
+PUSH 40 1
+PUSH 30 2
+PUSH 20 3
+PUSH 10 4
+
+POP
+POP
+
+PUSH 60 5
+PUSH 15 6
+PUSH 5 7
+PUSH 25 8
+
+POP
+POP
+POP
+
+PUSH 35 9
+PUSH 1 10
+PUSH 45 11
+
+POP
+POP
+POP
+POP
+POP
+POP
+POP

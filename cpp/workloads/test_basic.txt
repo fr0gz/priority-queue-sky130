@@ -1,0 +1,10 @@
+# Basic priority queue test
+
+PUSH 50 500
+PUSH 10 100
+PUSH 30 300
+PUSH 20 200
+POP
+POP
+POP
+POP

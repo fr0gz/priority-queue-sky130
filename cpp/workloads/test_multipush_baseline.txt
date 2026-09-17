@@ -1,0 +1,10 @@
+# Controlled multi-push baseline
+
+PUSH 40 0
+PUSH 10 1
+PUSH 70 2
+PUSH 20 3
+PUSH 60 4
+PUSH 30 5
+PUSH 50 6
+PUSH 80 7

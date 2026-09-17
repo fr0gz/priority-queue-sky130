@@ -1,0 +1,8 @@
+pushes=128
+pops=128
+push_comparisons=255
+push_swaps=135
+pop_comparisons=1157
+pop_swaps=562
+total_comparisons=1412
+total_swaps=697

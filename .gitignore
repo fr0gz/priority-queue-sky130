@@ -1,0 +1,69 @@
+# ============================================================
+# C / C++ build artifacts
+# ============================================================
+
+*.o
+*.a
+*.so
+*.out
+
+# Project executables
+cpp/reference/heap_baseline
+cpp/reference/heap_drain
+cpp/reference/heap_phase_stats
+cpp/reference/heap_runner
+cpp/reference/heap_stats
+cpp/reference/multipush_characterize
+cpp/reference/multipush_reference
+cpp/workloads/generator
+
+# Generic build directories
+build/
+bin/
+obj/
+
+# ============================================================
+# Python
+# ============================================================
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# ============================================================
+# Simulation artifacts
+# ============================================================
+
+*.vcd
+*.fst
+*.vvp
+
+# ============================================================
+# LaTeX generated files
+# ============================================================
+
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# ============================================================
+# Temporary files
+# ============================================================
+
+*.tmp
+*.swp
+*.swo
+
+# ============================================================
+# Editor / OS
+# ============================================================
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

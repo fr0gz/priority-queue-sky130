@@ -1,0 +1,19 @@
+# Burst of PUSH operations followed by POP operations
+
+PUSH 50 0
+PUSH 40 1
+PUSH 30 2
+PUSH 20 3
+PUSH 10 4
+PUSH 60 5
+PUSH 70 6
+PUSH 80 7
+
+POP
+POP
+POP
+POP
+POP
+POP
+POP
+POP

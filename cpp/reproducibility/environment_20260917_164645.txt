@@ -1,0 +1,1183 @@
+PRIORITY-QUEUE SKY130 REPRODUCIBILITY ENVIRONMENT SNAPSHOT
+===========================================================
+
+Project                     : priority-queue-sky130
+Capture timestamp            : 2026-09-17T16:46:45+0200
+Project root                : /foss/designs/priority-queue-sky130
+C++ root                    : /foss/designs/priority-queue-sky130/cpp
+Analysis root               : /foss/designs/priority-queue-sky130/cpp/analysis
+Report                      : /foss/designs/priority-queue-sky130/cpp/reproducibility/environment_20260917_164645.txt
+
+CURRENT PROJECT STAGE
+
+The current project stage is C++ behavioral implementation,
+baseline characterization and validation.
+
+RTL is NOT currently part of the project state captured by this script.
+
+STATUS DEFINITIONS
+  VERIFIED       = directly observed
+  NOT_AVAILABLE  = tool/information unavailable
+  NOT_DEFINED    = environment variable not defined
+  NOT_FOUND      = expected path does not exist
+  DECLARED       = supplied by project configuration
+
+
+============================================================================
+1. PROJECT IDENTITY
+============================================================================
+Project name                            : priority-queue-sky130
+Project root                            : /foss/designs/priority-queue-sky130
+C++ root                                : /foss/designs/priority-queue-sky130/cpp
+Analysis root                           : /foss/designs/priority-queue-sky130/cpp/analysis
+Capture time                            : 2026-09-17T16:46:45+0200
+/foss/designs/priority-queue-sky130     : VERIFIED
+/foss/designs/priority-queue-sky130/cpp : VERIFIED
+/foss/designs/priority-queue-sky130/cpp/analysis: VERIFIED
+
+============================================================================
+2. CURRENT PROJECT STAGE
+============================================================================
+RTL present in current scope            : NOT_ASSUMED
+RTL source files detected               : NO
+
+Current reproducibility scope:
+  - C++ implementation
+  - deterministic baselines
+  - directed tests
+  - multipush experiments
+  - characterization
+  - statistical summaries
+  - output validation
+
+============================================================================
+3. OPERATING SYSTEM / KERNEL / ARCHITECTURE
+============================================================================
+[/etc/os-release]
+PRETTY_NAME="Ubuntu 24.04.3 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.3 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+
+Kernel                                  : Linux 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024
+Kernel release                          : 5.15.167.4-microsoft-standard-WSL2
+Architecture                            : x86_64
+Machine                                 : x86_64
+
+--- CPU information ---
+Architecture:                         x86_64
+CPU op-mode(s):                       32-bit, 64-bit
+Address sizes:                        48 bits physical, 48 bits virtual
+Byte Order:                           Little Endian
+CPU(s):                               12
+On-line CPU(s) list:                  0-11
+Vendor ID:                            AuthenticAMD
+Model name:                           AMD Ryzen 5 7535HS with Radeon Graphics
+CPU family:                           25
+Model:                                68
+Thread(s) per core:                   2
+Core(s) per socket:                   6
+Socket(s):                            1
+Stepping:                             1
+BogoMIPS:                             6587.61
+Flags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid pni pclmulqdq ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext perfctr_core ssbd ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload umip vaes vpclmulqdq rdpid fsrm
+Virtualization:                       AMD-V
+Hypervisor vendor:                    Microsoft
+Virtualization type:                  full
+L1d cache:                            192 KiB (6 instances)
+L1i cache:                            192 KiB (6 instances)
+L2 cache:                             3 MiB (6 instances)
+L3 cache:                             16 MiB (1 instance)
+Vulnerability Gather data sampling:   Not affected
+Vulnerability Itlb multihit:          Not affected
+Vulnerability L1tf:                   Not affected
+Vulnerability Mds:                    Not affected
+Vulnerability Meltdown:               Not affected
+Vulnerability Mmio stale data:        Not affected
+Vulnerability Reg file data sampling: Not affected
+Vulnerability Retbleed:               Not affected
+Vulnerability Spec rstack overflow:   Mitigation; safe RET
+Vulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp
+Vulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:             Mitigation; Retpolines; IBPB conditional; IBRS_FW; STIBP always-on; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Not affected
+
+============================================================================
+4. DATE / TIME / LOCALE
+============================================================================
+Capture timestamp                       : 2026-09-17T16:46:45+0200
+Timezone                                : CEST (+0200)
+UTC time                                : 2026-09-17T14:46:45Z
+
+LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=en_US.UTF-8
+
+============================================================================
+5. EXECUTION ENVIRONMENT
+============================================================================
+Docker container detection              : VERIFIED
+container                               : NOT_DEFINED
+HOSTNAME                                : 1f60eede483a
+Hostname                                : 1f60eede483a
+
+============================================================================
+6. DOCKER / IIC-OSIC-TOOLS
+============================================================================
+Docker                                  : NOT_AVAILABLE
+
+============================================================================
+7. GIT REPOSITORY / SOURCE TRACEABILITY
+============================================================================
+git version 2.43.0
+Git repository                          : NOT_DETECTED
+
+============================================================================
+8. C++ TOOLCHAIN
+============================================================================
+
+--- g++ ---
+Executable : /usr/bin/g++
+Resolved   : /usr/bin/x86_64-linux-gnu-g++-13
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+Target information:
+x86_64-linux-gnu
+
+Compiler predefined macros:
+#define __GNUC__ 13
+#define __cplusplus 201703L
+#define __GNUC_PATCHLEVEL__ 0
+#define __GNUC_MINOR__ 3
+
+--- gcc ---
+Executable : /usr/bin/gcc
+Resolved   : /usr/bin/x86_64-linux-gnu-gcc-13
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+--- clang++ ---
+Executable : /usr/bin/clang++
+Resolved   : /usr/lib/llvm-18/bin/clang
+Ubuntu clang version 18.1.3 (1ubuntu1)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+
+--- clang ---
+Executable : /usr/bin/clang
+Resolved   : /usr/lib/llvm-18/bin/clang
+Ubuntu clang version 18.1.3 (1ubuntu1)
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
+
+--- make ---
+Executable : /usr/bin/make
+Resolved   : /usr/bin/make
+GNU Make 4.3
+Built for x86_64-pc-linux-gnu
+Copyright (C) 1988-2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+
+--- cmake ---
+Executable : /usr/bin/cmake
+Resolved   : /usr/bin/cmake
+cmake version 3.28.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+============================================================================
+9. C++ BUILD ENVIRONMENT
+============================================================================
+Relevant build-related environment variables:
+CC                                      : NOT_DEFINED
+CXX                                     : NOT_DEFINED
+CFLAGS                                  : NOT_DEFINED
+CXXFLAGS                                : NOT_DEFINED
+CPPFLAGS                                : NOT_DEFINED
+LDFLAGS                                 : NOT_DEFINED
+MAKEFLAGS                               : NOT_DEFINED
+CMAKE_PREFIX_PATH                       : NOT_DEFINED
+
+Compiler resolution:
+CXX executable:
+/usr/bin/g++
+
+============================================================================
+10. PYTHON ANALYSIS ENVIRONMENT
+============================================================================
+Executable:
+/usr/bin/python3
+
+Python 3.12.3
+
+Python executable:
+/usr/bin/python3
+
+Python version:
+3.12.3 (main, Nov  6 2025, 13:44:16) [GCC 13.3.0]
+
+Python platform:
+Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39
+
+Installed analysis packages:
+aenum==3.1.16
+aiohappyeyeballs==2.6.1
+aiohttp==3.13.2
+aiosignal==1.4.0
+altair==5.5.0
+amaranth==0.5.6
+amaranth-yosys==0.50.0.0.post118
+annotated-types==0.7.0
+antlr4-python3-runtime==4.9.3
+anyio==4.12.0
+argcomplete==3.6.3
+argon2-cffi==25.1.0
+argon2-cffi-bindings==25.1.0
+arrow==1.4.0
+asttokens==3.0.1
+async-lru==2.0.5
+attrs==25.4.0
+babel==2.17.0
+bayesian-optimization==1.4.0
+bcrypt==5.0.0
+beautifulsoup4==4.14.3
+black==25.12.0
+bleach==6.3.0
+blinker==1.9.0
+braceexpand==0.1.7
+cace==2.9.0
+cachetools==6.2.4
+cairocffi==1.7.1
+CairoSVG==2.8.2
+certifi==2025.11.12
+cffi==2.0.0
+cfgv==3.5.0
+chardet==5.2.0
+charlib==2.0.0
+charset-normalizer==3.4.4
+ciel==2.4.0
+click==8.3.1
+cloup==3.0.8
+cma==4.4.1
+cmd2==3.0.0
+cocotb==2.0.1
+colorama==0.4.6
+comm==0.2.3
+contourpy==1.3.3
+control==0.10.2
+cryptography==46.0.3
+cssselect2==0.8.0
+CSXCAD==0.6.2
+cvxopt==1.3.0
+cxxheaderparser==1.6.2
+cycler==0.12.1
+Cython==3.2.3
+dbus-python==1.3.2
+debtcollector==2.5.0
+debugpy==1.8.19
+decorator==5.2.1
+defusedxml==0.7.1
+Deprecated==1.3.1
+devscripts==2.23.7
+directsearch==1.0
+distlib==0.4.0
+distro==1.9.0
+dnspython==2.6.1
+docker==7.1.0
+docopt==0.6.2
+docutils==0.20.1
+edalize==0.6.3
+eventlet==0.35.2
+executing==2.2.1
+fasteners==0.20
+fastjsonschema==2.21.2
+fault-dft==0.9.4
+filelock==3.20.1
+find_libpython==0.5.0
+flake8==7.3.0
+Flask==3.1.2
+fonttools==4.61.1
+fqdn==1.5.1
+freetype-py==2.5.1
+frozenlist==1.8.0
+fsspec==2025.12.0
+fusesoc==2.4.5
+gdsfactory==9.25.2
+gdspy==1.6.13
+gdstk==1.0.0
+gitdb==4.0.12
+GitPython==3.1.45
+gmsh==4.12.1.dev1
+gobject==0.1.0
+gpg==1.18.0
+graphviz==0.21
+greenlet==3.0.3
+h11==0.16.0
+h5py==3.15.1
+hdl21==7.0.0
+httpcore==1.0.9
+httplib2==0.20.4
+httpx==0.28.1
+identify==2.6.15
+idna==3.11
+ImageIO==2.37.2
+immutabledict==4.2.2
+importlib-metadata==4.12.0
+importlib_resources==6.5.2
+inform==1.35
+iniconfig==2.3.0
+invoke==2.2.1
+ipyevents==2.0.4
+ipykernel==7.1.0
+ipympl==0.9.8
+ipython==9.8.0
+ipython_pygments_lexers==1.1.1
+ipytree==0.2.2
+ipywidgets==8.1.8
+iso8601==1.0.2
+isoduration==20.11.0
+itsdangerous==2.2.0
+jedi==0.19.2
+Jinja2==3.1.6
+joblib==1.5.3
+jschon==0.11.1
+json5==0.12.1
+jsonpointer==3.0.0
+jsonschema==4.25.1
+jsonschema-specifications==2025.9.1
+jsonschema2md==1.7.0
+jupyter==1.1.1
+jupyter_client==8.7.0
+jupyter-collaboration==4.2.0
+jupyter-collaboration-ui==2.2.0
+jupyter-console==6.6.3
+jupyter_core==5.9.1
+jupyter-docprovider==2.2.0
+jupyter-events==0.12.0
+jupyter-lsp==2.3.0
+jupyter_server==2.17.0
+jupyter_server_fileid==0.9.3
+jupyter_server_terminals==0.5.3
+jupyter-server-ydoc==2.2.0
+jupyter-ydoc==3.3.3
+jupyterlab==4.5.1
+jupyterlab_night==0.5.2
+jupyterlab_pygments==0.3.0
+jupyterlab_server==2.28.0
+jupyterlab_widgets==3.0.16
+jwcrypto==1.5.4
+kfactory==2.2.0
+kiwisolver==1.4.9
+klayout==0.30.5
+klayout-pex==0.3.7
+lambdalib==0.6.0
+lambdapdk==0.2.6
+lark==1.3.1
+latex2mathml==3.78.1
+launchpadlib==1.11.0
+lazr.restfulclient==0.14.6
+lazr.uri==1.0.6
+lazy_loader==0.4
+lctime==0.0.26
+liberty-parser==0.0.25
+libparse==0.3.1
+librelane==2.4.10
+lln-libparse==0.56.0
+loguru==0.7.3
+lxml==6.0.2
+Mako==1.3.2.dev0
+mapbox_earcut==2.0.0
+Markdown==3.10
+markdown-it-py==4.0.0
+MarkupSafe==3.0.3
+matplotlib==3.10.8
+matplotlib-inline==0.2.1
+maturin==1.10.2
+mccabe==0.7.0
+mdurl==0.1.2
+meson==1.3.2
+mistune==3.1.4
+monotonic==1.6
+more-itertools==10.2.0
+mpld3==0.5.10
+mpmath==1.3.0
+msgpack==1.0.3
+multidict==6.7.0
+mypy_extensions==1.1.0
+najaeda==0.3.0
+narwhals==2.14.0
+nbclient==0.10.3
+nbconvert==7.16.6
+nbformat==5.10.4
+nest-asyncio==1.6.0
+netaddr==0.8.0
+netifaces==0.11.0
+networkx==3.6.1
+nevergrad==1.0.12
+ngspyce==0.1
+ninja==1.13.0
+nl2bench==0.12.0
+nodeenv==1.10.0
+notebook==7.5.1
+notebook_shim==0.2.4
+numpy==2.4.0
+oauthlib==3.2.2
+okonomiyaki==3.0.0
+olefile==0.46
+openEMS==0.0.36
+orderedmultidict==1.0.2
+orjson==3.11.5
+oslo.config==9.4.0
+oslo.context==5.5.0
+oslo.i18n==6.3.0
+oslo.log==5.5.1
+oslo.serialization==5.4.0
+oslo.utils==7.1.0
+packaging==25.0
+panda==0.3.1
+pandas==2.3.3
+pandocfilters==1.5.1
+paramiko==4.0.0
+parso==0.8.5
+pathspec==0.12.1
+pbr==5.11.1
+pcpp==1.30
+pexpect==4.9.0
+pillow==12.0.0
+pip==25.3
+pipdeptree==2.30.0
+platformdirs==4.5.1
+plotly==6.5.0
+pluggy==1.6.0
+ply==3.10
+pre_commit==4.5.1
+PrettyPrintTree==2.0.1
+prettytable==3.17.0
+prometheus_client==0.23.1
+prompt_toolkit==3.0.52
+propcache==0.4.1
+protobuf==4.25.8
+psf_utils==1.10
+psutil==7.1.3
+ptyprocess==0.7.0
+pure_eval==0.2.3
+pyarrow==22.0.0
+pyasyncore==1.0.2
+pybind11==3.0.1
+pycairo==1.25.1
+pycodestyle==2.14.0
+pycparser==2.23
+pycrdt==0.12.44
+pycrdt-store==0.1.3
+pycrdt-websocket==0.16.0
+pydantic==2.12.5
+pydantic_core==2.41.5
+pydantic-extra-types==2.10.6
+pydantic-settings==2.12.0
+pydeck==0.9.1
+pyflakes==3.4.0
+pygame==2.6.1
+pygit2==1.19.0
+PyGithub==2.8.1
+pyglet==2.1.11
+Pygments==2.19.2
+pygmid==1.2.12
+PyGObject==3.48.2
+pyinotify==0.9.6
+PyJWT==2.10.1
+PyNaCl==1.6.1
+pyosys==0.56
+pyparsing==3.2.5
+pyperclip==1.11.0
+PyQt5==5.15.10
+PyQt5-sip==12.13.0
+PyQt6==6.6.1
+PyQt6-sip==13.6.0
+pyrtl==0.12
+pyslang==9.1.0
+PySpice==1.5
+pytest==9.0.2
+python-apt==2.7.7+ubuntu5.1
+python-dateutil==2.9.0.post0
+python-debian==0.1.49+ubuntu2
+python-dotenv==1.2.1
+python-json-logger==4.0.0
+python-magic==0.4.27
+python-novnc==1.0.0
+pytokens==0.3.0
+pytz==2025.2
+pyuvm==4.0.1
+pyvcd==0.4.1
+pyverilog==1.3.0
+pyxdg==0.28
+PyYAML==6.0.3
+pyzmq==27.1.0
+qrcode==8.2
+quantiphy==2.20
+RapidFuzz==3.14.3
+rdflib==7.5.0
+rectangle-packer==2.0.5
+rectpack==0.2.2
+referencing==0.37.0
+requests==2.32.5
+rfc3339-validator==0.1.4
+rfc3986==2.0.0
+rfc3986-validator==0.1.1
+rfc3987-syntax==1.1.0
+rich==14.2.0
+rich-argparse==1.7.2
+roman==3.3
+rpds-py==0.30.0
+ruamel.yaml==0.18.17
+ruamel.yaml.clib==0.2.15
+ruamel.yaml.string==0.1.1
+schema==0.7.8
+schemdraw==0.22
+scikit-build==0.18.1
+scikit-image==0.26.0
+scikit-learn==1.8.0
+scikit-rf==1.9.0
+scipy==1.16.3
+semver==3.0.4
+Send2Trash==1.8.3
+setuptools==80.9.0
+shapely==2.1.2
+shellingham==1.5.4
+shlib==1.8
+siliconcompiler==0.35.4
+simanneal==0.5.0
+simplesat==0.9.2
+six==1.17.0
+smmap==5.0.2
+soupsieve==2.8.1
+spicelib==1.4.7
+spyci==1.0.2
+sqlite-anyio==0.2.3
+stack-data==0.6.3
+stevedore==5.1.0
+streamlit==1.46.1
+streamlit-agraph==0.0.45
+streamlit-antd-components==0.3.2
+streamlit-autorefresh==1.0.1
+streamlit-javascript==0.1.5
+svgutils==0.3.4
+sympy==1.14.0
+systemd-python==235
+tabulate==0.9.0
+tenacity==9.1.2
+terminado==0.18.1
+threadpoolctl==3.6.0
+tifffile==2025.12.20
+tinycss2==1.4.0
+toml==0.10.2
+toolz==1.1.0
+torch-geometric==2.7.0
+tornado==6.5.4
+tqdm==4.67.1
+traitlets==5.14.3
+trimesh==4.10.1
+typer==0.20.1
+types-PyYAML==6.0.12.20250915
+typing_extensions==4.15.0
+typing-inspection==0.4.2
+tzdata==2025.3
+unidiff==0.7.3
+uri-template==1.3.0
+urllib3==2.6.2
+virtualenv==20.35.4
+vlsir==7.0.0
+vlsirtools==7.0.0
+wadllib==1.3.6
+wasmtime==39.0.0
+watchdog==6.0.0
+wcwidth==0.2.14
+webcolors==25.10.0
+webencodings==0.5.1
+websocket-client==1.9.0
+websockify==0.10.0
+Werkzeug==3.1.4
+wheel==0.45.1
+widgetsnbextension==4.0.15
+wrapt==2.0.1
+xdg==5
+xdot==1.3
+xxhash==3.6.0
+yamlcore==0.0.2
+yarl==1.22.0
+yowasp-runtime==1.82
+yowasp-yosys==0.60.0.0.post1055
+ziafont==0.11
+ziamath==0.12
+zipp==1.0.0
+zstandard==0.25.0
+
+============================================================================
+11. PROJECT STRUCTURE
+============================================================================
+
+--- Top-level C++ directories ---
+analysis/
+reference/
+reproducibility/
+workloads/
+
+--- Top-level C++ files ---
+
+============================================================================
+12. ANALYSIS DIRECTORY STRUCTURE
+============================================================================
+Directories:
+/foss/designs/priority-queue-sky130/cpp/analysis/
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/characterization/
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/
+
+Files:
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_128_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_16_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_32_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_64_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_8_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_basic.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_interleaved_clean.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_interleaved.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_push.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_duplicates.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_interleaved.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush_ordered.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/multipush_test_multipush_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_ordered.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_reverse.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_unordered.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_128_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_16_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_32_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_64_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_8_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_multipush_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/check_baseline.py
+/foss/designs/priority-queue-sky130/cpp/analysis/compare_output.py
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/characterization/test_burst_interleaved_clean.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_basic.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_burst_interleaved_clean.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_burst_interleaved.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_burst_push.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_duplicates.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_interleaved.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_multipush_ordered.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_128_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_16_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_32_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_64_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_8_seed12345.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_128_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_128_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_16_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_16_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_32_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_32_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_64_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_64_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_8_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_8_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_basic_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_basic_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_burst_interleaved_clean_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_burst_interleaved_clean_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_duplicates_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_duplicates_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_interleaved_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_interleaved_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_ordered_baseline.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_ordered_multipush.txt
+/foss/designs/priority-queue-sky130/cpp/analysis/summarize_phase_stats.py
+
+============================================================================
+13. CRITICAL ANALYSIS SCRIPTS
+============================================================================
+
+Path        : /foss/designs/priority-queue-sky130/cpp/analysis/check_baseline.py
+Status      : VERIFIED
+Type        : regular file
+Size        : 2498 bytes
+SHA256      : 879ca961e73f4698e04c7958974b721e0bce197f234ee4df030750b79062778b
+
+Path        : /foss/designs/priority-queue-sky130/cpp/analysis/compare_output.py
+Status      : VERIFIED
+Type        : regular file
+Size        : 1599 bytes
+SHA256      : 7915e70d1fd5d714472513a03a0c8e87e1943d1e38885dbd13a57f6b2e5e778a
+
+Path        : /foss/designs/priority-queue-sky130/cpp/analysis/summarize_phase_stats.py
+Status      : VERIFIED
+Type        : regular file
+Size        : 731 bytes
+SHA256      : 9df145d6240cb3af99bca16673dcdb3db077197865a7a238f6ac01ba3924b5e7
+
+============================================================================
+14. BASELINE INVENTORY
+============================================================================
+Baseline files:
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_128_seed12345.txt | 2272 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_16_seed12345.txt | 273 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_32_seed12345.txt | 552 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_64_seed12345.txt | 1119 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_8_seed12345.txt | 131 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_basic.txt | 72 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_interleaved_clean.txt | 192 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_interleaved.txt | 192 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_push.txt | 128 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_duplicates.txt | 90 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_interleaved.txt | 89 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush_baseline.txt | 128 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush_ordered.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/multipush_test_multipush_baseline.txt | 128 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_ordered.txt | 114 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_reverse.txt | 117 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_unordered.txt | 115 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_128_seed12345.txt | 130 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_16_seed12345.txt | 120 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_32_seed12345.txt | 123 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_64_seed12345.txt | 125 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_8_seed12345.txt | 116 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_multipush_baseline.txt | 115 bytes
+
+Baseline SHA256:
+ba974f5dd98336bc41b5184cf3a39dfaf9e7bf3b9430d2345b918c5e8e3a1385  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_128_seed12345.txt
+7eba79f42c114c7fa544fcc3b0eef21d9dde7036cca40e8b113fd2774607c528  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_16_seed12345.txt
+0127188389cf3306898f58f27b2fc69cc5f8014e769ad118c58c0d16a1ad3cf8  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_32_seed12345.txt
+9457c25bd8007cb9c5a0be8c6674933bbfdfaee17b511d1e34ada9c90f41edfe  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_64_seed12345.txt
+7dbfb15dfab78f6081991d9d58d2a74255e72b1ef0304db47f3cdd59a2e3863f  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/baseline_8_seed12345.txt
+6f3f96de74668edb96afc33ff80aa1083207be9ed30e0a8ebd197d1a2e466f94  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_basic.txt
+b0f14ca26f8617051779ad89ba35a52a15e9811c1d11db164802024fe3165137  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_interleaved_clean.txt
+e62eb24dcb0e81fa9fb0edffdecf997dbccacdb49f9355e02fd3a55ec19bb58b  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_interleaved.txt
+f2315eef553d9401b3c175915b466098652b74e53aae6037ce7a6799fc747ca7  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_push.txt
+480ec8d73ce25123a10792ca8b23de6571ad20bd21f00a90169b733c020d81a8  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_duplicates.txt
+5d7d13bd9a610fcbfabd189574d6bf3d403da76bda0dcef3bc14dd0809a53368  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_interleaved.txt
+7fac1b3d0700e0d9e95a255befe93fab191ffcdb463b3860e547a5a5e60d727d  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush_baseline.txt
+d4868d60f152ad16f50f76de8c4e61dadb986da757ae205abebd73f6c8b37a7f  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush_ordered.txt
+12387d176d8f4a3d16381c531f64349fdfbbe38e24c62039cb8b314014490017  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush.txt
+7fac1b3d0700e0d9e95a255befe93fab191ffcdb463b3860e547a5a5e60d727d  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/multipush_test_multipush_baseline.txt
+1a82d1df7b6635304495092ac0a7688983653af9bb81462f64138208fb2b47ec  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_ordered.txt
+a8ec73e0b7410395a1c2e2880327956f78ca2c4f26a0d1f40d2f8634b6b3dc99  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_reverse.txt
+e7c4db20873302fb8231ed01165cd4bb4e78a6c2a242acf9e19971a8a2cd562f  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_unordered.txt
+dc52c1c3d6ef209160178fab8cb22ca9439de50f42db2a20bf501acaf7817537  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_128_seed12345.txt
+76061f869f7330e673200b1280d2b2f12bdafc03adbcc43af20334b1766c3720  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_16_seed12345.txt
+c7125e7d19ffa749f8aa9c26c33d0d04f7d4afdd8229d48d47626f371e7b7a84  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_32_seed12345.txt
+165d146324b7899cacc2738f4db2657fb8a8a6a3d3147bb3c87c1d016fb096fd  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_64_seed12345.txt
+17d160749de2fb3d8b1bf209f5ca6c284b789da22d392add5944588841dd05e2  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_8_seed12345.txt
+403b4b121c5eaef7b84d05db39934f817e47ed8bed565da15ce77a5a36ecd9b1  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_multipush_baseline.txt
+
+============================================================================
+15. DIRECTED TEST INVENTORY
+============================================================================
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush_baseline.txt | 7fac1b3d0700e0d9e95a255befe93fab191ffcdb463b3860e547a5a5e60d727d
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_interleaved.txt | e62eb24dcb0e81fa9fb0edffdecf997dbccacdb49f9355e02fd3a55ec19bb58b
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush_ordered.txt | d4868d60f152ad16f50f76de8c4e61dadb986da757ae205abebd73f6c8b37a7f
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_multipush.txt | 12387d176d8f4a3d16381c531f64349fdfbbe38e24c62039cb8b314014490017
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_push.txt | f2315eef553d9401b3c175915b466098652b74e53aae6037ce7a6799fc747ca7
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_burst_interleaved_clean.txt | b0f14ca26f8617051779ad89ba35a52a15e9811c1d11db164802024fe3165137
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_duplicates.txt | 480ec8d73ce25123a10792ca8b23de6571ad20bd21f00a90169b733c020d81a8
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_interleaved.txt | 5d7d13bd9a610fcbfabd189574d6bf3d403da76bda0dcef3bc14dd0809a53368
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/directed/test_basic.txt | 6f3f96de74668edb96afc33ff80aa1083207be9ed30e0a8ebd197d1a2e466f94
+
+============================================================================
+16. STATISTICAL BASELINES
+============================================================================
+Statistics files:
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_ordered.txt | 114 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_reverse.txt | 117 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_unordered.txt | 115 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_128_seed12345.txt | 130 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_16_seed12345.txt | 120 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_32_seed12345.txt | 123 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_64_seed12345.txt | 125 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_8_seed12345.txt | 116 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_multipush_baseline.txt | 115 bytes
+
+Statistics file hashes:
+1a82d1df7b6635304495092ac0a7688983653af9bb81462f64138208fb2b47ec  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_ordered.txt
+a8ec73e0b7410395a1c2e2880327956f78ca2c4f26a0d1f40d2f8634b6b3dc99  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_reverse.txt
+e7c4db20873302fb8231ed01165cd4bb4e78a6c2a242acf9e19971a8a2cd562f  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/directed/test_push_unordered.txt
+dc52c1c3d6ef209160178fab8cb22ca9439de50f42db2a20bf501acaf7817537  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_128_seed12345.txt
+76061f869f7330e673200b1280d2b2f12bdafc03adbcc43af20334b1766c3720  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_16_seed12345.txt
+c7125e7d19ffa749f8aa9c26c33d0d04f7d4afdd8229d48d47626f371e7b7a84  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_32_seed12345.txt
+165d146324b7899cacc2738f4db2657fb8a8a6a3d3147bb3c87c1d016fb096fd  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_64_seed12345.txt
+17d160749de2fb3d8b1bf209f5ca6c284b789da22d392add5944588841dd05e2  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_8_seed12345.txt
+403b4b121c5eaef7b84d05db39934f817e47ed8bed565da15ce77a5a36ecd9b1  /foss/designs/priority-queue-sky130/cpp/analysis/baseline/stats/phase_multipush_baseline.txt
+
+============================================================================
+17. MULTIPUSH EXPERIMENT
+============================================================================
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush: VERIFIED
+
+Multipush directories:
+characterization/
+directed/
+stats/
+validation/
+
+Multipush files:
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/characterization/test_burst_interleaved_clean.txt | 866 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_basic.txt | 72 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_burst_interleaved_clean.txt | 192 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_burst_interleaved.txt | 192 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_burst_push.txt | 128 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_duplicates.txt | 90 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_interleaved.txt | 89 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_multipush_ordered.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/directed/test_multipush.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_128_seed12345.txt | 2272 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_16_seed12345.txt | 273 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_32_seed12345.txt | 552 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_64_seed12345.txt | 1119 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/stats/phase_8_seed12345.txt | 131 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_128_baseline.txt | 2272 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_128_multipush.txt | 2272 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_16_baseline.txt | 273 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_16_multipush.txt | 273 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_32_baseline.txt | 552 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_32_multipush.txt | 552 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_64_baseline.txt | 1119 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_64_multipush.txt | 1119 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_8_baseline.txt | 131 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_8_multipush.txt | 131 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_basic_baseline.txt | 72 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_basic_multipush.txt | 72 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_burst_interleaved_clean_baseline.txt | 192 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_burst_interleaved_clean_multipush.txt | 192 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_duplicates_baseline.txt | 90 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_duplicates_multipush.txt | 90 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_interleaved_baseline.txt | 89 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_interleaved_multipush.txt | 89 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_baseline.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_multipush.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_ordered_baseline.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_ordered_multipush.txt | 144 bytes
+
+============================================================================
+18. MULTIPUSH CHARACTERIZATION
+============================================================================
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/characterization/test_burst_interleaved_clean.txt | 866 bytes
+
+SHA256:
+9b94efa78f19ff6b8fb9d68117369389e6e1a6cdc904443e522b9b7a44b8e002  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/characterization/test_burst_interleaved_clean.txt
+
+============================================================================
+19. MULTIPUSH VALIDATION
+============================================================================
+Validation files:
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_128_baseline.txt | 2272 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_128_multipush.txt | 2272 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_16_baseline.txt | 273 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_16_multipush.txt | 273 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_32_baseline.txt | 552 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_32_multipush.txt | 552 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_64_baseline.txt | 1119 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_64_multipush.txt | 1119 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_8_baseline.txt | 131 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_8_multipush.txt | 131 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_basic_baseline.txt | 72 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_basic_multipush.txt | 72 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_burst_interleaved_clean_baseline.txt | 192 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_burst_interleaved_clean_multipush.txt | 192 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_duplicates_baseline.txt | 90 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_duplicates_multipush.txt | 90 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_interleaved_baseline.txt | 89 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_interleaved_multipush.txt | 89 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_baseline.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_multipush.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_ordered_baseline.txt | 144 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_ordered_multipush.txt | 144 bytes
+
+Validation SHA256:
+ba974f5dd98336bc41b5184cf3a39dfaf9e7bf3b9430d2345b918c5e8e3a1385  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_128_baseline.txt
+ba974f5dd98336bc41b5184cf3a39dfaf9e7bf3b9430d2345b918c5e8e3a1385  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_128_multipush.txt
+7eba79f42c114c7fa544fcc3b0eef21d9dde7036cca40e8b113fd2774607c528  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_16_baseline.txt
+7eba79f42c114c7fa544fcc3b0eef21d9dde7036cca40e8b113fd2774607c528  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_16_multipush.txt
+0127188389cf3306898f58f27b2fc69cc5f8014e769ad118c58c0d16a1ad3cf8  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_32_baseline.txt
+0127188389cf3306898f58f27b2fc69cc5f8014e769ad118c58c0d16a1ad3cf8  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_32_multipush.txt
+9457c25bd8007cb9c5a0be8c6674933bbfdfaee17b511d1e34ada9c90f41edfe  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_64_baseline.txt
+9457c25bd8007cb9c5a0be8c6674933bbfdfaee17b511d1e34ada9c90f41edfe  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_64_multipush.txt
+7dbfb15dfab78f6081991d9d58d2a74255e72b1ef0304db47f3cdd59a2e3863f  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_8_baseline.txt
+7dbfb15dfab78f6081991d9d58d2a74255e72b1ef0304db47f3cdd59a2e3863f  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/generated_8_multipush.txt
+6f3f96de74668edb96afc33ff80aa1083207be9ed30e0a8ebd197d1a2e466f94  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_basic_baseline.txt
+6f3f96de74668edb96afc33ff80aa1083207be9ed30e0a8ebd197d1a2e466f94  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_basic_multipush.txt
+b0f14ca26f8617051779ad89ba35a52a15e9811c1d11db164802024fe3165137  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_burst_interleaved_clean_baseline.txt
+b0f14ca26f8617051779ad89ba35a52a15e9811c1d11db164802024fe3165137  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_burst_interleaved_clean_multipush.txt
+480ec8d73ce25123a10792ca8b23de6571ad20bd21f00a90169b733c020d81a8  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_duplicates_baseline.txt
+480ec8d73ce25123a10792ca8b23de6571ad20bd21f00a90169b733c020d81a8  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_duplicates_multipush.txt
+5d7d13bd9a610fcbfabd189574d6bf3d403da76bda0dcef3bc14dd0809a53368  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_interleaved_baseline.txt
+5d7d13bd9a610fcbfabd189574d6bf3d403da76bda0dcef3bc14dd0809a53368  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_interleaved_multipush.txt
+12387d176d8f4a3d16381c531f64349fdfbbe38e24c62039cb8b314014490017  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_baseline.txt
+12387d176d8f4a3d16381c531f64349fdfbbe38e24c62039cb8b314014490017  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_multipush.txt
+d4868d60f152ad16f50f76de8c4e61dadb986da757ae205abebd73f6c8b37a7f  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_ordered_baseline.txt
+d4868d60f152ad16f50f76de8c4e61dadb986da757ae205abebd73f6c8b37a7f  /foss/designs/priority-queue-sky130/cpp/analysis/multipush/validation/test_multipush_ordered_multipush.txt
+
+============================================================================
+20. TEST RESULT FORMAT
+============================================================================
+Current validation scripts indicate the expected result format:
+
+  POP_RESULT <priority> <value>
+
+The comparison utility:
+  - parses POP_RESULT records;
+  - compares expected and actual sequences;
+  - reports the first mismatch;
+  - reports output-length mismatches.
+
+Validation script:
+Path        : /foss/designs/priority-queue-sky130/cpp/analysis/compare_output.py
+Status      : VERIFIED
+Type        : regular file
+Size        : 1599 bytes
+SHA256      : 7915e70d1fd5d714472513a03a0c8e87e1943d1e38885dbd13a57f6b2e5e778a
+
+============================================================================
+21. BASELINE PARAMETER / SEED INVENTORY
+============================================================================
+Candidate parameters detected from filenames:
+phase_multipush_baseline.txt
+seed12345
+
+Seed references:
+seed12345
+
+============================================================================
+22. ANALYSIS SCRIPT SOURCE SNAPSHOT
+============================================================================
+Critical analysis scripts and SHA256:
+
+FILE: /foss/designs/priority-queue-sky130/cpp/analysis/check_baseline.py
+SIZE: 2498 bytes
+SHA256: 879ca961e73f4698e04c7958974b721e0bce197f234ee4df030750b79062778b
+
+FILE: /foss/designs/priority-queue-sky130/cpp/analysis/compare_output.py
+SIZE: 1599 bytes
+SHA256: 7915e70d1fd5d714472513a03a0c8e87e1943d1e38885dbd13a57f6b2e5e778a
+
+FILE: /foss/designs/priority-queue-sky130/cpp/analysis/summarize_phase_stats.py
+SIZE: 731 bytes
+SHA256: 9df145d6240cb3af99bca16673dcdb3db077197865a7a238f6ac01ba3924b5e7
+
+
+============================================================================
+23. PROJECT SOURCE INVENTORY
+============================================================================
+C++ source files:
+/foss/designs/priority-queue-sky130/cpp/reference/heap_baseline.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/heap.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/heap_drain.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/heap_instrumented.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/heap_phase_stats.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/heap_runner.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/heap_stats.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/hybrid_queue.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/multipush_characterize.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/multipush_reference.cpp
+/foss/designs/priority-queue-sky130/cpp/reference/priority_queue.cpp
+/foss/designs/priority-queue-sky130/cpp/workloads/generator.cpp
+
+C++ source SHA256:
+92c8d85b634c83fff1c378ae1e4fbdda77cdeea917a93767dc5ee10317a12b58  /foss/designs/priority-queue-sky130/cpp/reference/heap_baseline.cpp
+6f40bd2bc88588c3aad8b37dd7aba51fc3a522bbb2cf432bfbe313b6468b7248  /foss/designs/priority-queue-sky130/cpp/reference/heap.cpp
+8d3f7ac10097e4bdec6353a6e4c4741a82d24b402d9835a278600a794f80864f  /foss/designs/priority-queue-sky130/cpp/reference/heap_drain.cpp
+5b0d918eb5a3774928f48aeccb3d5f3ef540077e8889cf4c1c1ac04a673a0623  /foss/designs/priority-queue-sky130/cpp/reference/heap_instrumented.cpp
+4f52e6ad5d643684010ea43d4ffbeb4804cace9b0692ff3cacbc3cfe1464351a  /foss/designs/priority-queue-sky130/cpp/reference/heap_phase_stats.cpp
+215b21a30b86edc261b74bef65d64682de49280c97e92d7df0f547ae39057b5c  /foss/designs/priority-queue-sky130/cpp/reference/heap_runner.cpp
+05a06885634d162b84ebeda785ab34076b415b66d33a322fa1074c67b2c9c596  /foss/designs/priority-queue-sky130/cpp/reference/heap_stats.cpp
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /foss/designs/priority-queue-sky130/cpp/reference/hybrid_queue.cpp
+13e6ef6b5336e401d18de120abf2ae369ed1d5d48546d2f3f31879bd59168109  /foss/designs/priority-queue-sky130/cpp/reference/multipush_characterize.cpp
+0671c084802be6a2928f6e8d8a42d025a1b269cd88a58698996352d7f530c0a3  /foss/designs/priority-queue-sky130/cpp/reference/multipush_reference.cpp
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /foss/designs/priority-queue-sky130/cpp/reference/priority_queue.cpp
+9c2e7f844cff15cfe8c3d7394c77f94922b5c6117a42f33eeb94eb98223e60da  /foss/designs/priority-queue-sky130/cpp/workloads/generator.cpp
+
+============================================================================
+24. BUILD CONFIGURATION
+============================================================================
+
+============================================================================
+25. ANALYSIS SCRIPT INVENTORY
+============================================================================
+/foss/designs/priority-queue-sky130/cpp/analysis/check_baseline.py | 2498 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/compare_output.py | 1599 bytes
+/foss/designs/priority-queue-sky130/cpp/analysis/summarize_phase_stats.py | 731 bytes
+
+Analysis script SHA256:
+879ca961e73f4698e04c7958974b721e0bce197f234ee4df030750b79062778b  /foss/designs/priority-queue-sky130/cpp/analysis/check_baseline.py
+7915e70d1fd5d714472513a03a0c8e87e1943d1e38885dbd13a57f6b2e5e778a  /foss/designs/priority-queue-sky130/cpp/analysis/compare_output.py
+9df145d6240cb3af99bca16673dcdb3db077197865a7a238f6ac01ba3924b5e7  /foss/designs/priority-queue-sky130/cpp/analysis/summarize_phase_stats.py
+
+============================================================================
+26. EXPERIMENTAL DATA SUMMARY
+============================================================================
+Baseline:
+24
+
+Multipush:
+36
+
+Validation:
+22
+
+============================================================================
+27. STATISTICS SUMMARY
+============================================================================
+Running statistics summarizer:
+
+file,pushes,pops,push_comparisons,push_swaps,pop_comparisons,pop_swaps,total_comparisons,total_swaps
+analysis/baseline/stats/directed/test_push_ordered.txt,8,8,7,0,17,9,24,9
+analysis/baseline/stats/directed/test_push_reverse.txt,8,8,13,13,15,6,28,19
+analysis/baseline/stats/directed/test_push_unordered.txt,8,8,9,3,17,9,26,12
+analysis/baseline/stats/phase_128_seed12345.txt,128,128,255,135,1157,562,1412,697
+analysis/baseline/stats/phase_16_seed12345.txt,16,16,21,10,56,28,77,38
+analysis/baseline/stats/phase_32_seed12345.txt,32,32,55,30,175,84,230,114
+analysis/baseline/stats/phase_64_seed12345.txt,64,64,116,59,452,223,568,282
+analysis/baseline/stats/phase_8_seed12345.txt,8,8,11,8,16,8,27,16
+analysis/baseline/stats/phase_multipush_baseline.txt,8,8,9,3,16,7,25,10
+
+============================================================================
+28. REPRODUCIBILITY ARTIFACTS
+============================================================================
+Existing environment snapshots:
+/foss/designs/priority-queue-sky130/cpp/reproducibility/environment_20260917_164645.txt | 53751 bytes
+
+============================================================================
+29. RELEVANT ENVIRONMENT VARIABLES
+============================================================================
+CC                                      : NOT_DEFINED
+CXX                                     : NOT_DEFINED
+CFLAGS                                  : NOT_DEFINED
+CXXFLAGS                                : NOT_DEFINED
+CPPFLAGS                                : NOT_DEFINED
+LDFLAGS                                 : NOT_DEFINED
+MAKEFLAGS                               : NOT_DEFINED
+CMAKE_PREFIX_PATH                       : NOT_DEFINED
+PATH                                    : /headless/.local/bin:/foss/tools/bin:/foss/tools/sak:/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/foss/tools/kactus2:/foss/tools/klayout:/foss/tools/osic-multitool
+LD_LIBRARY_PATH                         : /foss/tools/klayout:/foss/tools/ngspice/lib:/foss/tools/iverilog/lib:/foss/tools/openems/lib:/foss/tools/kactus2:/foss/tools/gtkwave/lib/x86_64-linux-gnu
+PYTHONPATH                              : /headless/.local/lib/python3.10/site-packages:/usr/lib/python312.zip:/usr/lib/python3.12:/usr/lib/python3.12/lib-dynload:/headless/.local/lib/python3.12/site-packages:/usr/local/lib/python3.12/dist-packages:/usr/lib/python3/dist-packages:/foss/tools/ngspyce/local/lib/python3.12/dist-packages:/foss/tools/openems/local/lib/python3.12/dist-packages:/foss/tools/yosys/share/yosys/python3:/foss/tools/klayout/pymod
+LANG                                    : en_US.UTF-8
+LC_ALL                                  : en_US.UTF-8
+TZ                                      : Europe/Vienna
+
+============================================================================
+30. REPRODUCIBILITY SUMMARY
+============================================================================
+PROJECT
+Name                                    : priority-queue-sky130
+Workspace                               : /foss/designs/priority-queue-sky130/cpp
+Analysis workspace                      : /foss/designs/priority-queue-sky130/cpp/analysis
+
+PROJECT STAGE
+Current stage                           : C++ behavioral implementation / characterization / validation
+RTL source files                        : NOT_PRESENT
+
+TOOLCHAIN
+g++                                     : VERIFIED
+g++ path                                : /usr/bin/g++
+Python3                                 : VERIFIED
+Python3 path                            : /usr/bin/python3
+Git                                     : VERIFIED
+
+SOURCE CONTROL
+Git HEAD                                : NOT_AVAILABLE
+
+ANALYSIS
+Baseline directory                      : VERIFIED
+Multipush directory                     : VERIFIED
+Validation directory                    : VERIFIED
+Characterization directory              : VERIFIED
+
+CRITICAL ANALYSIS SCRIPTS
+check_baseline.py                       : VERIFIED SHA256=879ca961e73f4698e04c7958974b721e0bce197f234ee4df030750b79062778b
+compare_output.py                       : VERIFIED SHA256=7915e70d1fd5d714472513a03a0c8e87e1943d1e38885dbd13a57f6b2e5e778a
+summarize_phase_stats.py                : VERIFIED SHA256=9df145d6240cb3af99bca16673dcdb3db077197865a7a238f6ac01ba3924b5e7
+
+IMPORTANT REPRODUCIBILITY NOTE
+
+This snapshot describes the environment and experimental artifacts
+available at capture time.
+
+The current project does NOT contain an RTL implementation.
+Therefore this report intentionally does not assume:
+
+  - RTL simulation
+  - synthesis
+  - timing analysis
+  - place and route
+  - GDS generation
+  - physical verification
+
+For the current behavioral/algorithmic stage, preserve together:
+
+  1. this environment snapshot;
+  2. the Git commit;
+  3. the C++ source files;
+  4. the compiler and build configuration;
+  5. deterministic baseline files;
+  6. directed test outputs;
+  7. multipush characterization;
+  8. validation outputs;
+  9. statistical summaries;
+ 10. random seeds and experiment parameters.
+
+No source, result, baseline or PDK files were modified by this
+environment-capture script.
+
+============================================================================
+31. CAPTURE METADATA
+============================================================================
+Script name                 : capture_priority_queue_sky_130_environment.sh
+Project                     : priority-queue-sky130
+Capture timestamp            : 2026-09-17T16:46:45+0200
+Project root                : /foss/designs/priority-queue-sky130
+C++ root                    : /foss/designs/priority-queue-sky130/cpp
+Analysis root               : /foss/designs/priority-queue-sky130/cpp/analysis
+Output                      : /foss/designs/priority-queue-sky130/cpp/reproducibility/environment_20260917_164645.txt
+
+END OF ENVIRONMENT SNAPSHOT
