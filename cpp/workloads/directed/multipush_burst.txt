@@ -1,0 +1,11 @@
+# Burst of PUSH operations followed by synchronization POPs
+PUSH 10 10
+PUSH 25 25
+PUSH 5 5
+PUSH 40 40
+PUSH 15 15
+POP
+POP
+POP
+POP
+POP

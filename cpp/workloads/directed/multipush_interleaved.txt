@@ -1,0 +1,27 @@
+# Burst 1
+PUSH 10 10
+PUSH 25 25
+PUSH 5 5
+
+# Synchronize and pop
+POP
+
+# Burst 2
+PUSH 40 40
+PUSH 15 15
+
+# Synchronize and pop twice
+POP
+POP
+
+# Burst 3
+PUSH 30 30
+PUSH 50 50
+PUSH 20 20
+PUSH 45 45
+
+# Synchronize and drain
+POP
+POP
+POP
+POP

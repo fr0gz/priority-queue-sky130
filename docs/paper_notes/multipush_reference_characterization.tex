@@ -1,0 +1,532 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath}
+
+\geometry{margin=2.5cm}
+
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+urlcolor=blue,
+citecolor=blue
+}
+
+\lstset{
+basicstyle=\ttfamily\small,
+columns=fullflexible,
+keepspaces=true,
+frame=single,
+breaklines=true,
+showstringspaces=false
+}
+
+\title{Multi-Push Heap Characterization\
+Experimental Runbook}
+\author{}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Runbook}
+
+This runbook defines the procedure used to characterize the reference
+implementation of the Multi-Push optimization and to verify the behavior
+of the two state variables that are central to the proposed architecture: push location and heap size.
+
+The experiment is intentionally performed at the software-reference level
+before moving to RTL. The objective is not to measure hardware performance.
+The objective is to establish a deterministic behavioral model that can
+later be used as the reference for an RTL implementation.
+
+\subsection{1. Experimental Objective}
+
+The experiment addresses the following question:
+
+\begin{quote}
+When multiple PUSH operations arrive before heap maintenance is completed,
+can the Multi-Push mechanism accept those entries immediately, defer their
+HeapifyUp operations, and subsequently synchronize the heap before a POP
+without changing the priority-queue output sequence?
+\end{quote}
+
+The characterization experiment focuses specifically on the relationship
+
+push_location>heap_size
+
+as the software representation of pending heap-maintenance work.
+
+In this model, \texttt{push_location} identifies the first free tail
+position for an incoming PUSH, while \texttt{heap_size} identifies the
+number of entries that have already been incorporated into the heap
+ordering.
+
+Therefore, the difference
+
+pending=push_location−heap_size
+
+represents the number of accepted PUSH operations that have not yet
+completed HeapifyUp.
+
+\subsection{2. Software Under Test}
+
+The experiment uses the following reference programs:
+
+\begin{itemize}
+\item \texttt{reference/multipush_reference.cpp}: functional
+Multi-Push reference model with operation and comparison statistics.
+
+\item \texttt{reference/multipush\_characterize.cpp}: state
+characterization model used to expose the relationship between
+accepted PUSH operations and completed heap maintenance.
+
+\item \texttt{reference/heap\_drain}: conventional baseline priority
+queue used to verify functional output equivalence.
+
+\item \texttt{reference/heap\_phase\_stats}: instrumented baseline
+used to obtain PUSH and POP comparison and swap counts.
+
+
+\end{itemize}
+
+The \texttt{multipush_reference} implementation is kept as the current
+functional reference model.
+
+The characterization program is an auxiliary experiment used to inspect
+the internal state transition implied by the Multi-Push algorithm. It is
+not intended to replace the functional reference model.
+
+\subsection{3. Build and Environment Check}
+
+Start from the repository root:
+
+\begin{lstlisting}
+/foss/designs/priority-queue-sky130
+\end{lstlisting}
+
+Enter the C++ reference-model directory:
+
+\begin{lstlisting}
+cd /foss/designs/priority-queue-sky130/cpp
+\end{lstlisting}
+
+Confirm that the reference executables exist:
+
+\begin{lstlisting}
+ls -lh reference/
+\end{lstlisting}
+
+The relevant executables are:
+
+\begin{lstlisting}
+reference/heap_drain
+reference/heap_phase_stats
+reference/multipush_reference
+reference/multipush_characterize
+\end{lstlisting}
+
+If a source file has changed, rebuild the corresponding executable before
+collecting new results.
+
+The source revision should also be recorded before a result is considered
+reproducible:
+
+\begin{lstlisting}
+git status --short
+git log -1 --oneline
+\end{lstlisting}
+
+\subsection{4. Functional Baseline Check}
+
+The first check is functional equivalence against the conventional heap
+implementation.
+
+For the generated workload with N=128 and seed 12345, run:
+
+\begin{lstlisting}
+./reference/multipush_reference
+workloads/generated/workload_128_seed12345.txt
+> /tmp/multipush_128.txt
+2> /tmp/multipush_128.stats
+
+./reference/heap_drain
+workloads/generated/workload_128_seed12345.txt
+> /tmp/baseline_128.txt
+\end{lstlisting}
+
+Compare the generated POP sequence:
+
+\begin{lstlisting}
+diff -u /tmp/baseline_128.txt /tmp/multipush_128.txt
+\end{lstlisting}
+
+A clean result means that no differences were reported.
+
+For an explicit pass/fail check:
+
+\begin{lstlisting}
+cmp -s /tmp/baseline_128.txt /tmp/multipush_128.txt
+&& echo "PASS: N=128 outputs identical"
+|| echo "FAIL: N=128 outputs differ"
+\end{lstlisting}
+
+The observed result for the current implementation was:
+
+\begin{lstlisting}
+PASS: N=128 outputs identical
+\end{lstlisting}
+
+This establishes functional equivalence for that workload. It does not
+by itself establish equivalence for all possible workloads.
+
+\subsection{5. Collect Multi-Push Statistics}
+
+The Multi-Push reference model reports separate statistics for the PUSH
+and POP phases.
+
+Run:
+
+\begin{lstlisting}
+cat /tmp/multipush_128.stats
+\end{lstlisting}
+
+The current N=128 result is:
+
+\begin{lstlisting}
+pushes=128
+pops=128
+push_comparisons=255
+push_swaps=135
+pop_comparisons=1157
+pop_swaps=562
+total_comparisons=1412
+total_swaps=697
+heapify_up_count=128
+\end{lstlisting}
+
+These counters characterize the algorithmic work performed by the
+software reference model. They should not be interpreted as direct
+hardware cycle counts.
+
+\subsection{6. Collect Baseline Phase Statistics}
+
+The conventional implementation is instrumented separately using
+\texttt{heap_phase_stats}.
+
+Run:
+
+\begin{lstlisting}
+for N in 8 16 32 64 128; do
+./reference/heap_phase_stats
+"workloads/generated/workload_${N}seed12345.txt"
+> "/tmp/baseline_stats${N}.txt"
+
+echo "===== BASELINE STATS N=${N} ====="
+cat "/tmp/baseline_stats_${N}.txt"
+
+
+done
+\end{lstlisting}
+
+The observed baseline results are:
+
+\begin{lstlisting}
+N=8:
+push_comparisons=11
+push_swaps=8
+pop_comparisons=16
+pop_swaps=8
+total_comparisons=27
+total_swaps=16
+
+N=16:
+push_comparisons=21
+push_swaps=10
+pop_comparisons=56
+pop_swaps=28
+total_comparisons=77
+total_swaps=38
+
+N=32:
+push_comparisons=55
+push_swaps=30
+pop_comparisons=175
+pop_swaps=84
+total_comparisons=230
+total_swaps=114
+
+N=64:
+push_comparisons=116
+push_swaps=59
+pop_comparisons=452
+pop_swaps=223
+total_comparisons=568
+total_swaps=282
+
+N=128:
+push_comparisons=255
+push_swaps=135
+pop_comparisons=1157
+pop_swaps=562
+total_comparisons=1412
+total_swaps=697
+\end{lstlisting}
+
+These values provide a useful sanity check because the current Multi-Push
+reference produces the same aggregate operation counts for the
+corresponding PUSH-only workloads.
+
+\subsection{7. Directed Multi-Push Characterization}
+
+The most important experiment is the directed characterization workload.
+
+Create the workload:
+
+\begin{lstlisting}
+cat > /tmp/multipush_directed.txt <<'EOF'
+PUSH 10 10
+PUSH 25 25
+PUSH 5 5
+PUSH 40 40
+PUSH 15 15
+POP
+POP
+POP
+POP
+POP
+EOF
+\end{lstlisting}
+
+Run:
+
+\begin{lstlisting}
+./reference/multipush_characterize
+/tmp/multipush_directed.txt
+> /tmp/multipush_directed.out
+\end{lstlisting}
+
+Inspect the trace:
+
+\begin{lstlisting}
+cat /tmp/multipush_directed.out
+\end{lstlisting}
+
+The important portion of the trace is:
+
+\begin{lstlisting}
+0 PUSH 1 0 1
+1 PUSH 2 0 2
+2 PUSH 3 0 3
+3 PUSH 4 0 4
+4 PUSH 5 0 5
+5 POP_WAIT 5 0 5
+6 POP_READY 5 5 0
+7 POP_DONE 4 4 0
+\end{lstlisting}
+
+The interpretation is:
+
+\begin{itemize}
+\item Five PUSH operations are accepted while
+\texttt{heap_size} remains zero.
+
+\item \texttt{push\_location} advances from zero to five.
+
+\item Therefore, five entries are pending heap maintenance.
+
+\item The POP reaches a synchronization point.
+
+\item The pending entries are incorporated before the POP becomes
+ready.
+
+\item After the root is removed, the active heap contains four entries.
+
+
+\end{itemize}
+
+This is the key behavioral observation of the experiment.
+
+\subsection{8. Interleaved Workload}
+
+The second directed test checks that the same mechanism works after the
+queue has already been partially maintained.
+
+Run:
+
+\begin{lstlisting}
+./reference/multipush_characterize
+/tmp/multipush_interleaved.txt
+> /tmp/multipush_interleaved.out
+
+cat /tmp/multipush_interleaved.out
+\end{lstlisting}
+
+The observed trace contains transitions of the form:
+
+\begin{lstlisting}
+6 PUSH 3 2 1
+7 PUSH 4 2 2
+8 POP_WAIT 4 2 2
+9 POP_READY 4 4 0
+10 POP_DONE 3 3 0
+\end{lstlisting}
+
+This is important because the experiment is no longer starting from an
+empty heap.
+
+At cycle 6, the queue already contains two maintained entries. Two
+additional PUSH operations are then accepted without immediately
+increasing \texttt{heap_size}. The resulting state is
+
+push_location=4,heap_size=2,pending=2.
+
+The following POP forces synchronization. The state changes to
+
+push_location=4,heap_size=4,pending=0.
+
+Only after this synchronization does the root removal occur.
+
+\subsection{9. What to Record}
+
+For every directed experiment, retain:
+
+\begin{itemize}
+\item workload file;
+\item random seed, when applicable;
+\item queue size;
+\item exact executable used;
+\item source revision or Git commit;
+\item functional comparison result;
+\item Multi-Push statistics;
+\item characterization trace;
+\item baseline statistics.
+\end{itemize}
+
+The characterization trace should be treated as the primary evidence for
+the state-machine behavior being modeled.
+
+\subsection{10. Interpretation Criteria}
+
+The experiment is considered behaviorally consistent with the intended
+Multi-Push mechanism when all of the following observations hold:
+
+\begin{enumerate}
+\item PUSH operations are accepted without immediately performing
+HeapifyUp.
+
+\item \texttt{push\_location} advances for every accepted PUSH.
+
+\item \texttt{heap\_size} remains unchanged while pending maintenance
+is outstanding.
+
+\item A POP synchronizes all pending entries before removing the root.
+
+\item After synchronization,
+\(\texttt{push\_location}=\texttt{heap\_size}\).
+
+\item After a POP, both state variables move consistently with the
+reduced active heap.
+
+\item The resulting POP sequence matches the conventional heap
+implementation.
+
+
+\end{enumerate}
+
+This is a behavioral criterion, not a hardware-performance criterion.
+
+\subsection{11. Current Experimental Conclusion}
+
+The current software experiments support the following behavioral model:
+
+PUSH acceptance→deferred HeapifyUp→POP synchronization→HeapifyDown
+
+The directed traces demonstrate that
+\texttt{push_location} and \texttt{heap_size} can be used to represent
+the distinction between accepted entries and entries already incorporated
+into the heap ordering.
+
+The functional comparison against \texttt{heap_drain} also shows
+identical POP output for the tested N=128 generated workload.
+
+The appropriate next step is therefore not to modify the functional
+reference model unnecessarily. The next engineering step is to use this
+behavioral model to define the corresponding RTL state transitions and
+then verify the RTL against the software reference.
+
+\section{Key Terms}
+
+\begin{description}[style=nextline,leftmargin=3.5cm]
+
+\item[Multi-Push]
+Optimization intended for workloads in which multiple PUSH operations
+may arrive while heap maintenance is still in progress.
+
+\item[PUSH acceptance]
+The operation of storing an incoming entry at the current
+\texttt{push\_location}. In the reference model, acceptance does not
+immediately perform HeapifyUp.
+
+\item[\texttt{push\_location}]
+State variable identifying the next free tail position at which an
+incoming PUSH can be stored.
+
+\item[\texttt{heap\_size}]
+State variable representing the number of entries currently
+incorporated into the heap ordering.
+
+\item[Pending PUSH]
+An accepted entry that has been stored but has not yet completed its
+HeapifyUp operation.
+
+\item[HeapifyUp]
+Heap operation that restores the heap property by moving a newly
+incorporated entry toward the root when required.
+
+\item[HeapifyDown]
+Heap operation performed after root removal to restore the heap
+property by moving the replacement entry toward the leaves when
+required.
+
+\item[Synchronization point]
+A point at which the implementation must complete pending PUSH
+maintenance before allowing a POP to remove the root.
+
+\item[POP]
+Priority-queue removal operation that returns the highest-priority
+entry in the modeled min-heap.
+
+\item[Characterization model]
+A reference implementation whose purpose is to expose internal
+algorithmic state transitions rather than to serve as the final
+functional implementation.
+
+\item[Functional reference]
+The software model used as the behavioral source of truth for
+comparison against other implementations.
+
+\item[Baseline]
+Conventional heap implementation used as an independent reference
+for functional output and algorithmic operation counts.
+
+\item[RTL]
+Register-transfer level description of the hardware implementation.
+The software experiment precedes RTL so that the expected state
+transitions are defined before hardware design decisions are made.
+
+
+\end{description}
+
+\end{document}
